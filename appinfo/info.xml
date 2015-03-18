@@ -2,7 +2,7 @@
 <info>
 	<id>oc_user_pwd</id>
 	<name>User password backend</name>
-	<description>User SSHA password validation.</description>
+	<description>User password SSHA validation.</description>
 	<licence>AGPL</licence>
 	<author>CaminsTech</author>
 	<require>7</require>
