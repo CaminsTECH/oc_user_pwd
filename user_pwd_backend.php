@@ -2,16 +2,26 @@
 
 namespace OCA\oc_user_pwd;
 
-class USER_PWD_BACKEND implements \OCP\UserInterface {
+class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
+
 	protected $db;
 
 	public function __construct($db) {
 		$this->db = $db;
 	}
 
-	public function canChangeAvatar($uid) {
-		return false;
-	}
+	// --------------------------------------------------------
+	// IUserManager methods
+	// --------------------------------------------------------
+	public function registerBackend($backend) {}
+	public function removeBackend($backend) {}
+	public function clearBackends() {}
+	public function get($uid) { return null; }
+	public function userExists($uid) { return false; }
+	public function search($pattern, $limit = null, $offset = null) { return array(); }
+	public function searchDisplayName($pattern, $limit = null, $offset = null) { return array(); }
+	public function createUser($uid, $password) { return false; }
+	public function countUsers() { return 0; }
 
 	public function checkPassword($uid, $password) {
 		$user = $this->getUser($uid);
@@ -58,39 +68,16 @@ class USER_PWD_BACKEND implements \OCP\UserInterface {
 		return $known == $user;
 	}
 
-	public function getUsers($search = '', $limit = 10, $offset = 0) {
-		return array();
-	}
-
-	public function userExistsOnLDAP($user) {
-		return true;
-	}
-
-	public function userExists($uid) {
-		return true;
-	}
-
-	public function deleteUser($uid) {
-		return false;
-	}
-
-	public function getHome($uid) {
-		return false;
-	}
-
-	public function getDisplayName($uid) {
-		return false;
-	}
-
-	public function getDisplayNames($search = '', $limit = null, $offset = null) {
-		return array();
-	}
+	// --------------------------------------------------------
+	// IUserManager methods
+	// --------------------------------------------------------
+	public function getUsers($search = '', $limit = 10, $offset = 0) { return array(); }
+	public function deleteUser($uid) { return false; }
+	public function getDisplayName($uid) { return false; }
+	public function getDisplayNames($search = '', $limit = null, $offset = null) { return array(); }
+	public function hasUserListings() { return false; }
 
 	public function implementsActions($actions) {
 		return (bool)((OC_USER_BACKEND_CHECK_PASSWORD) & $actions);
-	}
-
-	public function hasUserListings() {
-		return false;
 	}
 }
