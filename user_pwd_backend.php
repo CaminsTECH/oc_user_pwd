@@ -13,15 +13,48 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 	// --------------------------------------------------------
 	// IUserManager methods
 	// --------------------------------------------------------
-	public function registerBackend($backend) {}
-	public function removeBackend($backend) {}
-	public function clearBackends() {}
-	public function get($uid) { return null; }
-	public function userExists($uid) { return false; }
-	public function search($pattern, $limit = null, $offset = null) { return array(); }
-	public function searchDisplayName($pattern, $limit = null, $offset = null) { return array(); }
-	public function createUser($uid, $password) { return false; }
-	public function countUsers() { return 0; }
+	public function registerBackend($backend) {
+		\OCP\Util::writeLog('oc_user_pwd', 'registerBackend('.get_class($backend).'): Method not implemented', \OCP\Util::WARN);
+	}
+
+	public function removeBackend($backend) {
+		\OCP\Util::writeLog('oc_user_pwd', 'removeBackend('.get_class($backend).'): Method not implemented', \OCP\Util::WARN);
+	}
+
+	public function clearBackends() {
+		\OCP\Util::writeLog('oc_user_pwd', 'clearBackends(): Method not implemented', \OCP\Util::WARN);
+	}
+
+	public function get($uid) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'get('.$uid.'): Method not implemented', \OCP\Util::WARN);
+		return null; 
+	}
+
+	public function userExists($uid) {
+		if (!empty($uid))
+			\OCP\Util::writeLog('oc_user_pwd', 'userExists('.$uid.'): Method not implemented', \OCP\Util::WARN);
+		return false; 
+	}
+
+	public function search($pattern, $limit = null, $offset = null) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'search('.$pattern.'): Method not implemented', \OCP\Util::WARN);
+		return array(); 
+	}
+
+	public function searchDisplayName($pattern, $limit = null, $offset = null) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'searchDisplayName('.$pattern.'): Method not implemented', \OCP\Util::WARN);
+		return array(); 
+	}
+
+	public function createUser($uid, $password) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'createUser('.$uid.'): Method not implemented', \OCP\Util::WARN);
+		return false; 
+	}
+
+	public function countUsers() { 
+		\OCP\Util::writeLog('oc_user_pwd', 'countUsers(): Method not implemented', \OCP\Util::WARN);
+		return 0; 
+	}
 
 	public function checkPassword($uid, $password) {
 		$user = $this->getUser($uid);
@@ -71,11 +104,30 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 	// --------------------------------------------------------
 	// IUserManager methods
 	// --------------------------------------------------------
-	public function getUsers($search = '', $limit = 10, $offset = 0) { return array(); }
-	public function deleteUser($uid) { return false; }
-	public function getDisplayName($uid) { return false; }
-	public function getDisplayNames($search = '', $limit = null, $offset = null) { return array(); }
-	public function hasUserListings() { return false; }
+	public function getUsers($search = '', $limit = 10, $offset = 0) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'getUsers('.$search.'): Method not implemented', \OCP\Util::WARN);
+		return array(); 
+	}
+
+	public function deleteUser($uid) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'deleteUser('.$uid.'): Method not implemented', \OCP\Util::WARN);
+		return false; 
+	}
+
+	public function getDisplayName($uid) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'getDisplayName('.$uid.'): Method not implemented', \OCP\Util::WARN);
+		return false; 
+	}
+
+	public function getDisplayNames($search = '', $limit = null, $offset = null) { 
+		\OCP\Util::writeLog('oc_user_pwd', 'getDisplayNames('.$search.'): Method not implemented', \OCP\Util::WARN);
+		return array(); 
+	}
+
+	public function hasUserListings() { 
+		\OCP\Util::writeLog('oc_user_pwd', 'hasUserListings(): Method not implemented', \OCP\Util::WARN);
+		return false; 
+	}
 
 	public function implementsActions($actions) {
 		return (bool)((OC_USER_BACKEND_CHECK_PASSWORD) & $actions);
