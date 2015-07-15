@@ -81,7 +81,7 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 	}
 
 	private function getUser($uid) {
-		$query = $this->db->prepare('SELECT uid, password FROM oc_users WHERE LOWER(uid) = LOWER(?)');
+		$query = $this->db->prepare('SELECT uid, password FROM `*PREFIX*users` WHERE LOWER(uid) = LOWER(?)');
 		$result = $query->execute(array($uid));
 		if (!$result)
 			return false;
