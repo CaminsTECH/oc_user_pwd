@@ -104,6 +104,11 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 	// --------------------------------------------------------
 	// IUserManager methods
 	// --------------------------------------------------------
+	public function getBackends() {
+		\OCP\Util::writeLog('oc_user_pwd', 'getBackends(): Method not implemented', \OCP\Util::WARN);
+		return false; 
+	}
+	
 	public function getUsers($search = '', $limit = 10, $offset = 0) { 
 		\OCP\Util::writeLog('oc_user_pwd', 'getUsers('.$search.'): Method not implemented', \OCP\Util::WARN);
 		return array(); 
