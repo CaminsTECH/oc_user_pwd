@@ -6,5 +6,5 @@
 	<licence>AGPL</licence>
 	<author>CaminsTech</author>
 	<require>7</require>
-	<shipped>true</shipped>
+	<shipped>false</shipped>
 </info>
