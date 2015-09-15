@@ -7,4 +7,7 @@
 	<author>CaminsTech</author>
 	<require>7</require>
 	<shipped>false</shipped>
+	<types>
+		<authentication/>
+	</types>
 </info>
