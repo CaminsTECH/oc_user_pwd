@@ -68,7 +68,7 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 	}
 
 	private function getUserHash($user) {
-		$password = base64_decode($user['password']);
+		$password = $user['password'];
 		if (substr($password, 0, 6) != '{SSHA}')
 			return false;
 
