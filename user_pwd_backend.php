@@ -1,6 +1,7 @@
 <?php
-
 namespace OCA\oc_user_pwd;
+
+require_once('pwd_sha.php');
 
 class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 
@@ -31,7 +32,7 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 	}
 
 	public function userExists($uid) {
-		return false; 
+		return false;
 	}
 
 	public function search($pattern, $limit = null, $offset = null) {
@@ -54,50 +55,23 @@ class USER_PWD_BACKEND implements \OCP\IUserManager, \OCP\UserInterface  {
 		return 0;
 	}
 
-	public function checkPassword($uid, $password) {
-		$user = $this->getUser($uid);
-		$hash = $this->getUserHash($user);
-		if (!$hash)
-			return false;
+    public function checkPassword($uid, $password) {
+        $user = $this->getUser($uid);
+        if (!PasswordSHA::check($password, $user['password']))
+            return false;
+        return $user['uid'];
+    }
 
-		$sha1 = $this->createSHA1($password, $hash['salt']);
-		if (!$this->hashEquals($hash['sha1'], $sha1))
-			return false;
-
-		return $user['uid'];
-	}
-
-	private function getUserHash($user) {
-		$password = $user['password'];
-		if (substr($password, 0, 6) != '{SSHA}')
-			return false;
-
-		$ssha = base64_decode(substr($password, 6));
-		$salt = substr($ssha, 20);
-		$sha1 = substr($ssha, 0, 20);
-		return array('sha1' => $sha1, 'salt' => $salt);
-	}
-
-	private function getUser($uid) {
-		$query = $this->db->prepare('SELECT uid, password FROM `*PREFIX*users` WHERE LOWER(uid) = LOWER(?)');
-		$result = $query->execute(array($uid));
-		if (!$result)
-			return false;
-		$user = $query->fetch();
-		if (!$user)
-			return false;
-		return $user;
-	}
-
-	private function createSHA1($text, $salt) {
-		return pack("H*", sha1($text.$salt));
-	}
-
-	private function hashEquals($known, $user) {
-		if (function_exists('hash_equals'))
-			return (hash_equals($known, $user));
-		return $known == $user;
-	}
+    private function getUser($uid) {
+        $query = $this->db->prepare('SELECT uid, password FROM `*PREFIX*users` WHERE LOWER(uid) = LOWER(?)');
+        $result = $query->execute(array($uid));
+        if (!$result)
+            return false;
+        $user = $query->fetch();
+        if (!$user)
+            return false;
+        return $user;
+    }
 
 	// --------------------------------------------------------
 	// IUserManager methods
